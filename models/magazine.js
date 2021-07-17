@@ -9,4 +9,4 @@ MagazineSchema.virtual("url").get(function() {
   return `/catalog/magazine/${this._id}`;
 });
 
-module.exports = mongoose.model("Genre", MagazineSchema);
+module.exports = mongoose.model("Magazine", MagazineSchema);

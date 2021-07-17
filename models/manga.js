@@ -6,7 +6,8 @@ const MangaSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: "Author", required: true },
   magazine: [{ type: Schema.Types.ObjectId, ref: "Magazine", required: true }],
   genre: [{ type: Schema.Types.ObjectId, ref: "Genre"}],
-  original_run: { type: Date, required: true },
+  original_run_start: { type: Date },
+  original_run_end: { type: Date },
   volumes: { type: Number, min: 1, max: 1000, required: true },
   sypnosis: { type: String, required: true },
 });
