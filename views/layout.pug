@@ -4,4 +4,17 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    nav.navbar
+      div.title-container
+        h1= title
+      div.list-container
+        ul(class='navbar-ul')
+          li
+            a(href='/mangas') Manga
+          li
+            a(href='/authors') Authors
+          li
+            a(href='/magazines') Magazines
+          li
+            a(href='/genres') Genres
     block content

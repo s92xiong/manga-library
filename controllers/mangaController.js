@@ -1,5 +1,6 @@
 const Manga = require("../models/manga");
 
+
 // Display list of all mangas
 exports.manga_list = (req, res, next) => {
   res.send("NOT IMPLEMENTED: Manga List");

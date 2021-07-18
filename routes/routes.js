@@ -7,8 +7,8 @@ const magazine_controller = require("../controllers/magazineController");
 const manga_controller = require("../controllers/mangaController");
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', (req, res, next) => {
+  res.render('index', { title: "Manga Library" });
 });
 
 /// ------------------------------ MANGA ROUTES ------------------------------ ///

@@ -1,8 +1,94 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+/* ------------------------ NAVBAR ------------------------ */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  background-color: rgb(196, 43, 43);
+  color: #fff;
+}
+
+.title-container {
+  margin: 0 4em;
+}
+
+.title-container, .list-container {
+  width: 50%;
+}
+
+.navbar-ul {
+  display: flex;
+  justify-content: space-evenly;
+  list-style-type: none;
+}
+
+.navbar-ul a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.navbar-ul a:hover {
+  text-decoration: none;
+  color: rgb(236, 236, 236);
+}
+
+/* ------------------------ HOMEPAGE / INDEX ------------------------ */
+
+.home-title {
+  text-align: center;
+  margin-top: 2em;
+}
+
+.home-card {
+  width: 80%;
+  min-height: 375px;
+  margin: 2em auto;
+  background-image: url("../images/manga-bg.png");
+  background-position: top;
+  background-size: cover;
+}
+
+
+
+/* ------------------------ MOBILE VIEW ------------------------ */
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    height: auto;
+    padding: 1em;
+  }
+
+  .title-container {
+    margin: 0;
+    text-align: center;
+  }
+
+  .navbar-ul {
+    flex-direction: column;
+    text-align: center;
+    margin: 1em;
+  }
+
+  .navbar-ul li {
+    padding: 0.5em;
+  }
+
+  /* ------------------------ HOMEPAGE / INDEX ------------------------ */
+
+.home-title {
+  font-size: large;
+}
 }
