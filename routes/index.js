@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const author_controller = require("../controllers/authorController");
+const genre_controller = require("../controllers/genreController");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -53,22 +54,22 @@ router.get("/authors", author_controller.author_list);
 /// ------------------------------ GENRE ROUTES ------------------------------ ///
 
 // GET & POST request to create an genre
-// router.get("/genre/create", genre_controller.genre_create_get);
-// router.post("/genre/create", genre_controller.genre_create_post);
+router.get("/genre/create", genre_controller.genre_create_get);
+router.post("/genre/create", genre_controller.genre_create_post);
 
-// // GET & POST request to delete an genre
-// router.get("/genre/delete", genre_controller.genre_delete_get);
-// router.post("/genre/delete", genre_controller.genre_delete_post);
+// GET & POST request to delete an genre
+router.get("/genre/delete", genre_controller.genre_delete_get);
+router.post("/genre/delete", genre_controller.genre_delete_post);
 
-// // GET & POST request to update an genre
-// router.get("/genre/update", genre_controller.genre_update_get);
-// router.post("/genre/update", genre_controller.genre_update_post);
+// GET & POST request to update an genre
+router.get("/genre/update", genre_controller.genre_update_get);
+router.post("/genre/update", genre_controller.genre_update_post);
 
-// // Get request for a single genre
-// router.get("/genre/:id", genre_controller.genre_detail);
+// GET request for a single genre
+router.get("/genre/:id", genre_controller.genre_detail);
 
-// // GET request for genre list
-// router.get("/genres", genre_controller.genre_list);
+// GET request for genre list
+router.get("/genres", genre_controller.genre_list);
 
 
 /// ------------------------------ MAGAZINE ROUTES ------------------------------ ///
