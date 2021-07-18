@@ -17,11 +17,15 @@ body {
   width: 100%;
   height: 60px;
   background-color: rgb(196, 43, 43);
-  color: #fff;
 }
 
 .title-container {
   margin: 0 4em;
+}
+
+.title-container a {
+  text-decoration: none;
+  color: #fff;
 }
 
 .title-container, .list-container {

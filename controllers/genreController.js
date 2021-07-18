@@ -6,7 +6,7 @@ exports.genre_list = function(req, res, next) {
 		.sort([["name", "ascending"]])
 		.exec((err, results) => {
 		if (err) return next(err);
-		res.render("index", { categories: "Genre Categories", list_genres: results });
+		res.render("genre_list", { categories: "Genre Categories", list_genres: results });
 	});
 };
 
