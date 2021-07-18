@@ -10,6 +10,7 @@ const MangaSchema = new Schema({
   original_run_end: { type: Date },
   volumes: { type: Number, min: 1, max: 1000, required: true },
   sypnosis: { type: String, required: true },
+  image: { type: String }
 });
 
 // Virtual for Manga URL
