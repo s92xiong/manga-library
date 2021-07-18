@@ -14,7 +14,7 @@ const MangaSchema = new Schema({
 
 // Virtual for Manga URL
 MangaSchema.virtual("url").get(function() {
-  return `catalog/book/${this._id}`;
+  return `/book/${this._id}`;
 });
 
 module.exports = mongoose.model("Manga", MangaSchema);
