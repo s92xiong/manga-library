@@ -3,7 +3,7 @@ extends layout
 block content
   p #{categories}:
 
-  ul 
+  ul.list-item 
     each genre in list_genres 
       li 
         a(href=genre.url) #{genre.name}

@@ -8,15 +8,17 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+
 /* ------------------------ NAVBAR ------------------------ */
 
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 85%;
   height: 60px;
   background-color: rgb(196, 43, 43);
+  margin: 0 auto;
 }
 
 .title-container {
@@ -48,6 +50,11 @@ body {
   color: rgb(236, 236, 236);
 }
 
+.container {
+  width: 85%;
+  margin: 0 auto;
+}
+
 /* ------------------------ HOMEPAGE / INDEX ------------------------ */
 
 .home-title {
@@ -65,10 +72,18 @@ body {
 }
 
 
+/* ------------------------ GENRE PAGE ------------------------ */
+
+.list-item a {
+  text-decoration: none;
+  color: #1d439b;
+}
+
+
 
 /* ------------------------ MOBILE VIEW ------------------------ */
 
-@media (max-width: 768px) {
+@media (max-width: 868px) {
   .navbar {
     flex-direction: column;
     height: auto;
@@ -83,7 +98,7 @@ body {
   .navbar-ul {
     flex-direction: column;
     text-align: center;
-    margin: 1em;
+    margin-top: 1em;
   }
 
   .navbar-ul li {
