@@ -1,4 +1,7 @@
 const Genre = require('../models/genre');
+const Manga = require("../models/manga");
+
+const async = require("async");
 
 // Display list of all Genre.
 exports.genre_list = function(req, res, next) {
@@ -6,14 +9,25 @@ exports.genre_list = function(req, res, next) {
 		.sort([["name", "ascending"]])
 		.exec((err, results) => {
 		if (err) return next(err);
-		res.render("genre_list", { categories: "Genre Categories", list_genres: results });
+		res.render("genre_list", { title: "Genre Categories", list_genres: results });
 	});
 };
 
 
 // Display detail page for a specific Genre.
 exports.genre_detail = function(req, res, next) {
-	res.send('NOT IMPLEMENTED: Genre detail: ' + req.params.id);
+	async.parallel({
+		genre: function(cb) { Genre.findById(req.params.id).exec(cb) },
+		genre_manga: function(cb) { Manga.find({ "genre": req.params.id }).exec(cb) }
+	}, (err, results) => {
+		if (err) return next(err);
+		if (!results.genre) {
+			const someError = new Error("Genre not found");
+      someError.status = 404;
+      return next(err);
+		}
+		res.render("genre_detail", { title: "Genre Details", genre: results.genre, genre_manga: results.genre_manga })
+	});
 };
 
 

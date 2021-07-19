@@ -19,7 +19,7 @@ body {
   max-width: 1200px;
   height: 60px;
   background-color: rgb(196, 43, 43);
-  margin: 30px auto;
+  margin: 2.6em auto;
 }
 
 .title-container {
@@ -61,7 +61,7 @@ body {
 
 .home-title {
   text-align: center;
-  margin-top: 1.5em;
+  margin-top: 1.2em;
 }
 
 .home-card {
@@ -74,7 +74,7 @@ body {
 }
 
 
-/* ------------------------ GENRE PAGE ------------------------ */
+/* ------------------------ GENRE LIST PAGE ------------------------ */
 
 .sub-title-container {
   width: 100%;
@@ -83,7 +83,7 @@ body {
 }
 
 .sub-title-container p {
-  font-weight: 600;
+  /* font-weight: 600; */
   margin: 2em 0 0.25em 0;
 }
 

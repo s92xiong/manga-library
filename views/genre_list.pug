@@ -2,9 +2,9 @@ extends layout
 
 block content
   div.sub-title-container
-    p #{categories}:   
+    p #{title}:   
 
-  a(href="/genre/create").form-link + Genre
+  a(href="/genre/create").form-link Create Genre
 
   ul.list-item 
     each genre in list_genres 
