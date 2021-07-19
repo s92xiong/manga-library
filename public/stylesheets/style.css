@@ -8,6 +8,17 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+li {
+  list-style: none;
+}
 
 /* ------------------------ NAVBAR ------------------------ */
 
@@ -97,17 +108,7 @@ body {
 }
 
 .list-item li {
-  list-style-type: none;
   padding: 0.1em 0;
-}
-
-.list-item a {
-  text-decoration: none;
-  color: #1d439b;
-}
-
-.list-item a:hover {
-  text-decoration: underline;
 }
 
 /* ------------------------ GENRE DETAIL PAGE ------------------------ */
@@ -133,6 +134,12 @@ body {
 }
 
 
+/* ------------------------ DELETE GENRE ------------------------ */
+
+
+.delete-item-message {
+  margin: 0 0 0.6em 0;
+}
 
 /* ------------------------ INPUT FIELD STYLING ------------------------ */
 
@@ -189,7 +196,7 @@ button:hover {
 
   /* ------------------------ HOMEPAGE / INDEX ------------------------ */
 
-.home-title {
-  font-size: large;
-}
+  .home-title {
+    font-size: large;
+  }
 }

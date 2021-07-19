@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  div.sub-title-container
+    p #{title}: 
+      b #{genre.name}
+
+  if manga_list.length 
+    p.delete-item-message Delete the following books before attempting to delete this genre: 
+    each manga in manga_list 
+      ul 
+        li 
+          a(href=`${manga.url}`) #{manga.title}
+
+  else
+    p Do you really want to delete this Genre?
+    form(method="POST" action="")
+      input#genreid(type="hidden", name="genreid", required="true", value=genre._id)
+      button Delete

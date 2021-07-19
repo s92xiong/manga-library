@@ -61,7 +61,7 @@ exports.genre_create_post = [
 			if (found_genre) {
 				res.redirect(found_genre.url);
 			} else {
-				genre.save((err2) => (err2) ? next(err2) : res.redirect(genre.url));
+				genre.save((err2) => (err2) ? next(err2) : res.redirect("/genres"));
 			}
 		});
 	}
@@ -70,13 +70,32 @@ exports.genre_create_post = [
 
 // Display Genre delete form on GET.
 exports.genre_delete_get = function(req, res, next) {
-	res.send('NOT IMPLEMENTED: Genre delete GET');
+	async.parallel({
+		genre: function(cb) { Genre.findById(req.params.id).exec(cb) },
+		manga_list: function(cb) { Manga.find({ "genre": req.params.id }).exec(cb) }
+	}, (err, results) => {
+		if (err) return next(err);
+		return res.render("genre_delete", { title: "Delete Genre", genre: results.genre, manga_list: results.manga_list });
+	});
 };
 
 
 // Handle Genre delete on POST.
 exports.genre_delete_post = function(req, res, next) {
-	res.send('NOT IMPLEMENTED: Genre delete POST');
+	async.parallel({
+		genre: function(cb) { Genre.findById(req.params.id).exec(cb) },
+		manga_list: function(cb) { Manga.find({ "genre": req.params.id }).exec(cb) }
+	}, (err, results) => {
+		if (err) return next(err);
+		if (results.manga_list.length > 0) {
+			return res.render("genre_delete", { title: "Delete Genre", genre: results.genre, manga_list: results.manga_list });
+		}
+
+		return Genre.findByIdAndRemove(req.params.id, function deleteGenre(err) {
+			if (err) return next(err);
+			res.redirect("/genres");
+		})
+	});
 };
 
 

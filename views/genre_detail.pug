@@ -2,7 +2,8 @@ extends layout
 
 block content
   div.sub-title-container
-    p #{title}: #{genre.name}
+    p #{title}: 
+      b #{genre.name}
 
 
   
@@ -17,6 +18,6 @@ block content
 
   section.delete-update-container
     p
-      a(href="/genre/delete") Delete Genre 
+      a(href=`${genre.url}/delete`) Delete Genre 
     p
-      a(href="/genre/update") Update Genre 
+      a(href=`${genre.url}/update`) Update Genre 
