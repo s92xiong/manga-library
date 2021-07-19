@@ -1,6 +1,7 @@
 const Genre = require('../models/genre');
 const Manga = require("../models/manga");
 
+const { body, validationResult } = require("express-validator");
 const async = require("async");
 
 // Display list of all Genre.
@@ -38,9 +39,33 @@ exports.genre_create_get = function(req, res, next) {
 
 
 // Handle Genre create on POST.
-exports.genre_create_post = function(req, res, next) {
-	res.send('NOT IMPLEMENTED: Genre create POST');
-};
+exports.genre_create_post = [
+	// Validate & sanitize the name field
+	body("name", "Genre name required").trim().isLength({ min: 1 }).escape(),
+
+	// Process request
+	(req, res, next) => {
+		const errors = validationResult(req);
+
+		const genre = new Genre({
+			name: req.body.name // value of input field
+		});
+
+		if (!errors.isEmpty()) {
+			return res.render("genre_form", { title: "Create Genre", genre: genre, errors: errors.array() });
+		}
+
+		// Prevent duplicate genre
+		Genre.findOne({ "name": req.body.name }).exec((err1, found_genre) => {
+			if (err1) return next(err1);
+			if (found_genre) {
+				res.redirect(found_genre.url);
+			} else {
+				genre.save((err2) => (err2) ? next(err2) : res.redirect(genre.url));
+			}
+		});
+	}
+];
 
 
 // Display Genre delete form on GET.
