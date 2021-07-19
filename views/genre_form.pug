@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  div.sub-title-container
+    p #{title}:
+
+  form(method="POST" action="")
+    div
+      input#name(type="text", placeholder="Fantasy, Adventure etc.", name="name" value=(undefined===genre ? "" : genre.name), required="true") 
+    button(type="submit") Submit

@@ -8,8 +8,15 @@ block content
   
   ul.list-item 
     each manga in genre_manga
-      li 
-        a(href=manga.url) #{manga.title}:
+      div.list-item-child
+        li 
+          a(href=manga.url) #{manga.title}:
       li #{manga.sypnosis}
     else 
       li There are no current Manga with this Genre.
+
+  section.delete-update-container
+    p
+      a(href="/genre/delete") Delete Genre 
+    p
+      a(href="/genre/update") Update Genre 

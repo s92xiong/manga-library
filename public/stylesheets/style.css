@@ -74,7 +74,7 @@ body {
 }
 
 
-/* ------------------------ GENRE LIST PAGE ------------------------ */
+/* ------------------------ GENRES PAGE ------------------------ */
 
 .sub-title-container {
   width: 100%;
@@ -89,12 +89,15 @@ body {
 
 .form-link {
   float: right;
-  font-size: 0.95em;
+}
+
+/* This class is used in other models */
+.list-item-child {
+  margin-bottom: 1em 0;
 }
 
 .list-item li {
   list-style-type: none;
-  font-size: 0.95em;
   padding: 0.1em 0;
 }
 
@@ -107,7 +110,58 @@ body {
   text-decoration: underline;
 }
 
+/* ------------------------ GENRE DETAIL PAGE ------------------------ */
 
+/* This class is used in other models */
+.delete-update-container {
+  margin-top: 1.5em;
+  padding-top: 1em;
+  text-decoration: none;
+  border-top: 1px solid grey;
+}
+
+.delete-update-container p {
+  line-height: 1.8em;
+}
+
+.delete-update-container a {
+  text-decoration: none;
+}
+
+.delete-update-container a:hover {
+  text-decoration: underline;
+}
+
+
+
+/* ------------------------ INPUT FIELD STYLING ------------------------ */
+
+input[type=text], select {
+  text-align: center;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  background-color: #574e42;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #fff;
+  font: 13px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+button:hover {
+  background-color: rgb(117, 79, 79);
+}
 
 /* ------------------------ MOBILE VIEW ------------------------ */
 
