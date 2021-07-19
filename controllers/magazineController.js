@@ -2,7 +2,12 @@ const Magazine = require("../models/magazine");
 
 // Render a list of magazines
 exports.magazine_list = (req, res, next) => {
-  res.send('NOT IMPLEMENTED: Magazine list');
+  Magazine.find()
+    .sort([["name", "ascending"]])
+    .exec((err, results) => {
+    if (err) return next(err);
+    res.render("magazine_list", { title: "Magazines", list_magazines: results });
+  });
 };
 
 

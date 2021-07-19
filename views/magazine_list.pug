@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  div.sub-title-container
+    p #{title}:   
+
+  a(href="/magazine/create").form-link + Create Magazine
+
+  ul.list-item 
+    each magazine in list_magazines
+      li 
+        a(href=magazine.url) #{magazine.name}
+    else 
+      li There are no current genres.
