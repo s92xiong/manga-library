@@ -1,6 +1,5 @@
 const Author = require("../models/author");
 const Manga = require("../models/manga");
-const Genre = require("../models/genre");
 
 const { body, validationResult } = require("express-validator");
 
@@ -57,12 +56,31 @@ exports.author_create_post = [
 
 // Display Author delete form on GET.
 exports.author_delete_get = function(req, res, next) {
-	res.send('NOT IMPLEMENTED: Author delete GET');
+	async.parallel({
+		author: function(cb) { Author.findById(req.params.id).exec(cb) },
+		manga_list: function(cb) { Manga.find({ "author": req.params.id }).exec(cb) }
+	}, (err, results) => {
+		if (err) return next(err);
+		return res.render("author_delete", { title: "Delete Author", author: results.author, manga_list: results.manga_list });
+	});
 };
 
 // Handle Author delete on POST.
-exports.author_delete_post = function(req, res, next) {
-	res.send('NOT IMPLEMENTED: Author delete POST');
+exports.author_delete_post = (req, res, next) => {
+	async.parallel({
+		author: function(cb) { Author.findById(req.params.id).exec(cb) },
+		manga_list: function(cb) { Manga.find({ "author": req.params.id }).exec(cb) }
+	}, (err, results) => {
+		if (err) return next(err);
+		if (results.manga_list > 0) {
+			return res.render("author_delete", { title: "Delete Author", author: results.author, manga_list: results.manga_list });
+		}
+		
+		return Author.findByIdAndRemove(req.params.id, function deleteAuthor(err) {
+			if (err) return next(err);
+			res.redirect("/authors");
+		});
+	});
 };
 
 // Display Author update form on GET.
