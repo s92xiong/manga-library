@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  div.sub-title-container
+    p #{title}:   
+
+  a(href="/author/create").form-link + Create Author
+
+  ul.list-item 
+    each author in author_list
+      li 
+        a(href=author.url) #{author.name}
+        |  (#{author.years_alive})
+    else 
+      li There are no current Authors.
