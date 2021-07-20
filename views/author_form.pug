@@ -3,10 +3,19 @@ extends layout
 block content
   div.sub-title-container
     p #{title}: 
-  //-     b #{magazine && magazine.name}
-    
 
-  //- form(method="POST" action="")
-  //-   div
-  //-     input#name(type="text", placeholder="Add a magazine name", name="name" value=(undefined===magazine ? "" : magazine.name), required="true") 
-  //-   button(type="submit") Submit
+  form(method="POST" action="") 
+    div 
+      label(for="first_name") First Name: 
+      input#first_name(type="text" placeholder="First name (Josuke)" name="first_name" required="true" value=(undefined===author ? "" : author.first_name))
+      label(for="family_name") Family Name: 
+      input#family_name(type="text" placeholder="Family name (Higashikata)" name="family_name" required="true" value=(undefined===author ? "" : author.family_name))
+    br
+    div 
+      label(for="date_of_birth") Date of birth: 
+      input#date_of_birth(type="date" name="date_of_birth" value=(undefined===author ? "" : author.date_of_birth))
+    br
+    div 
+      label(for="date_of_death") Date of death: 
+      input#date_of_death(type="date" name="date_of_death" value=(undefined===author ? "" : author.date_of_death))
+    button(type="submit") Submit
