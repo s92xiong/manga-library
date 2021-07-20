@@ -19,3 +19,8 @@ block content
       label(for="date_of_death") Date of death: 
       input#date_of_death(type="date" name="date_of_death" value=(undefined===author ? "" : author.date_of_death))
     button(type="submit") Submit
+
+  if errors 
+    ul
+      for error in errors 
+        li!= error.msg
