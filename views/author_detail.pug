@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  div.sub-title-container
+    p #{title}: 
+      b #{author.name}
+
+
+  h3.author-manga Manga:
+
+  div.author-manga-list
+    ul.list-item 
+      each manga in manga_list
+        div.list-item-child
+          li 
+            b
+              a(href=manga.url) #{manga.title}:
+        li #{manga.sypnosis}
+      else 
+        li There are no current Manga with this Author.
+
+  section.delete-update-container
+    p
+      a(href=`${author.url}/delete`) Delete Author 
+    p
+      a(href=`${author.url}/update`) Update Author

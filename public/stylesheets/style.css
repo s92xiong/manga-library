@@ -172,7 +172,13 @@ button:hover {
 
 /* ------------------------ AUTHOR LIST PAGE ------------------------ */
 
+.author-manga {
+  margin: 0 0 0.5em 0;
+}
 
+.author-manga-list {
+  padding: 0 1em;
+}
 
 
 /* ------------------------ MOBILE VIEW ------------------------ */
