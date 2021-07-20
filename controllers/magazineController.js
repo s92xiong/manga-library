@@ -68,7 +68,13 @@ exports.magazine_create_post = [
 
 // Render magazine delete form
 exports.magazine_delete_get = (req, res, next) => {
-  res.send('NOT IMPLEMENTED: Magazine Delete Get');
+  async.parallel({
+		magazine: function(cb) { Magazine.findById(req.params.id).exec(cb) },
+		manga_list: function(cb) { Manga.find({ "magazine": req.params.id }).exec(cb) }
+	}, (err, results) => {
+		if (err) return next(err);
+		return res.render("magazine_delete", { title: "Delete Magazine", magazine: results.magazine, manga_list: results.manga_list });
+	});
 };
 
 
