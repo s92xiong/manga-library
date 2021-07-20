@@ -53,7 +53,7 @@ exports.magazine_create_post = [
 			res.render("magazine_form", { title: "Create Magazine", magazine: magazine, errors: errors.array() });
 		}
 
-		// Prevent duplicate genre
+		// Prevent duplicate magazine
 		Magazine.findOne({ "name": req.body.name }).exec((err1, found_magazine) => {
 			if (err1) return next(err1);
 			if (found_magazine) {
@@ -80,7 +80,20 @@ exports.magazine_delete_get = (req, res, next) => {
 
 // Handle magazine delete form
 exports.magazine_delete_post = (req, res, next) => {
-  res.send('NOT IMPLEMENTED: Magazine Delete Post');
+  async.parallel({
+		magazine: function(cb) { Magazine.findById(req.params.id).exec(cb) },
+		manga_list: function(cb) { Manga.find({ "magazine": req.params.id }).exec(cb) }
+	}, (err, results) => {
+		if (err) return next(err);
+		if (results.manga_list.length > 0) {
+			return res.render("magazine_delete", { title: "Delete Magazine", magazine: results.magazine, manga_list: results.manga_list });
+		}
+
+		return Magazine.findByIdAndRemove(req.params.id, function deleteMagazine(err) {
+			if (err) return next(err);
+			res.redirect("/magazines");
+		});
+	});
 };
 
 
