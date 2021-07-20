@@ -3,22 +3,20 @@ extends layout
 block content
   div.sub-title-container
     p #{title}: 
-      b #{genre.name}
-
-
+      b #{magazine.name}
   
   ul.list-item 
-    each manga in genre_manga
+    each manga in magazine_manga
       div.list-item-child
         li 
           b
             a(href=manga.url) #{manga.title}:
       li #{manga.sypnosis}
     else 
-      li There are no current Manga with this Genre.
+      li This magazine has no current Manga.
 
   section.delete-update-container
     p
-      a(href=`${genre.url}/delete`) Delete Genre 
+      a(href=`${magazine.url}/delete`) Delete Magazine 
     p
-      a(href=`${genre.url}/update`) Update Genre 
+      a(href=`${magazine.url}/update`) Update Magazine 
