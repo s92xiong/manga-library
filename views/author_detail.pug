@@ -19,6 +19,12 @@ block content
       else 
         li There are no current Manga with this Author.
 
+  if (genre_list)
+    div.author-genre-list
+      h3 Genres:
+      each genre in genre_list 
+        a(href=genre.url)  #{genre.name} |
+
   section.delete-update-container
     p
       a(href=`${author.url}/delete`) Delete Author 

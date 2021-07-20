@@ -23,8 +23,7 @@ exports.author_detail = function(req, res, next) {
 	async.parallel({
 		author: function(cb) { Author.findById(req.params.id).exec(cb) },
 		manga: function(cb) { Manga.find({ "author": req.params.id }).exec(cb) },
-		genre: function(cb) { Genre.find({ "genre": req.params.id }).exec(cb) },
-		magazine: function(cb) { Magazine.find({ "magazine": req.params.id }).exec(cb) }
+		genre: function(cb) { Genre.find().sort([["name", "ascending"]]).exec(cb) },
 	}, (err, results) => {
 		if (err) return next(err);
 		return res.render("author_detail", { 
@@ -32,14 +31,13 @@ exports.author_detail = function(req, res, next) {
 			author: results.author,
 			manga_list: results.manga,
 			genre_list: results.genre,
-			magazine_list: results.magazine
 		});
 	});
 };
 
 // Display Author create form on GET.
 exports.author_create_get = function(req, res, next) {
-	res.send('NOT IMPLEMENTED: Author create GET');
+	res.render("author_form", { title: "Create an Author" });
 };
 
 // Handle Author create on POST.
