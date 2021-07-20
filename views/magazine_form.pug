@@ -2,7 +2,9 @@ extends layout
 
 block content
   div.sub-title-container
-    p #{title}:
+    p #{title}: 
+      b #{magazine && magazine.name}
+    
 
   form(method="POST" action="")
     div

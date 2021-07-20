@@ -99,7 +99,11 @@ exports.magazine_delete_post = (req, res, next) => {
 
 // Render magazine update form
 exports.magazine_update_get = (req, res, next) => {
-  res.send('NOT IMPLEMENTED: Magazine Update Get');
+	async.parallel({
+		magazine: function(cb) { Magazine.findById(req.params.id).exec(cb) }
+	}, (err, results) => {
+		res.render("magazine_form", { title: "Update Magazine", magazine: results.magazine });
+	});
 };
 
 
