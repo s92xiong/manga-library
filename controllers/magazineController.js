@@ -102,12 +102,41 @@ exports.magazine_update_get = (req, res, next) => {
 	async.parallel({
 		magazine: function(cb) { Magazine.findById(req.params.id).exec(cb) }
 	}, (err, results) => {
-		res.render("magazine_form", { title: "Update Magazine", magazine: results.magazine });
+		if (err) return next(err);
+		return res.render("magazine_form", { title: "Update Magazine", magazine: results.magazine });
 	});
 };
 
 
 // Handle magazine update form
-exports.magazine_update_post = (req, res, next) => {
-  res.send('NOT IMPLEMENTED: Magazine Update Post');
-};
+exports.magazine_update_post = [
+	body("name", "Magazine name required").trim().isLength({ min: 1 }).escape(),
+
+	(req, res, next) => {
+		const errors = validationResult(req);
+		
+		const magazine = new Magazine({
+			name: req.body.name,
+			_id: req.params.id
+		});
+
+		if (!errors.isEmpty()) {
+			async.parallel({
+				magazine: function(cb) { Magazine.findById(req.params.id).exec(cb) }
+			}, (err, results) => {
+				if (err) return next(err);
+				return res.render("magazine_form", { title: "Update Magazine", magazine: results.magazine });
+			});
+		}
+
+		// Check for duplicate magazine
+		Magazine.findOne({ "name": req.body.name }).exec((err1, found_magazine) => {
+			if (err1) return next(err1);
+			if (found_magazine) return res.redirect(found_magazine.url);
+			Magazine.findByIdAndUpdate(req.params.id, magazine, {}, (err2, newMagazine) => {
+				if (err2) return next(err);
+				return res.redirect(newMagazine.url);
+			});
+		});
+	}
+];

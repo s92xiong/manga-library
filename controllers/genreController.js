@@ -103,6 +103,7 @@ exports.genre_update_get = (req, res, next) => {
 	async.parallel({
 		genre: function(cb) { Genre.findById(req.params.id).exec(cb) }
 	}, (err, results) => {
+		if (err) return next(err);
 		res.render("genre_form", { title: "Update Genre", genre: results.genre });
 	});
 	
