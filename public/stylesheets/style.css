@@ -177,7 +177,7 @@ button:hover {
 }
 
 .author-manga-list {
-  padding: 0 1em;
+  padding: 0.25em 1em;
 }
 
 .author-genre-list {
@@ -190,6 +190,42 @@ button:hover {
   color: black;
 }
 
+
+/* ------------------------ MANGA INFO ------------------------ */
+
+
+.manga-info-title {
+  padding: 0;
+  font-size: x-large;
+}
+
+.manga-container {
+  display: flex;
+  width: 100%;
+}
+
+.manga-container-left {
+  width: 70%;
+  padding-right: 2em;
+}
+
+.manga-container-right {
+  width: 30%;
+} 
+
+.manga-container-right img {
+  width: 100%;
+}
+
+.manga-p {
+  padding: 0 1em;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+}
+
+.manga-p a {
+  color: rgb(29, 29, 235);
+}
 
 /* ------------------------ MOBILE VIEW ------------------------ */
 

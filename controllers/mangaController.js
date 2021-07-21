@@ -1,15 +1,25 @@
 const Manga = require("../models/manga");
-
+const async = require("async");
 
 // Display list of all mangas
 exports.manga_list = (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Manga List");
+  Manga.find({}, "title author").populate("author").exec((err, list_manga) => {
+    if (err) return next(err);
+    res.render("manga_list", { title: "Manga List", manga_list: list_manga });
+  });
 };
 
 
 // Display single detail for manga
 exports.manga_detail = (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Manga Detail: " + req.params.id);
+  Manga.findById(req.params.id)
+    .populate("author")
+    .populate("genre")
+    .populate("magazine")
+    .exec((err, manga_info) => {
+      if (err) return next(err);
+      res.render("manga_detail", { title: "Manga", manga: manga_info });
+    });
 };
 
 

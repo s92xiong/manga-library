@@ -1,0 +1,86 @@
+extends layout
+
+block content
+  div.sub-title-container.manga-info-title
+    p #{title}: 
+      b #{manga.title}
+
+  if manga.image
+    div.manga-container
+
+      div.manga-container-left
+        h3 Author: 
+        p.manga-p
+          a #{manga.author.name}
+
+        h3 Sypnosis: 
+        p.manga-p #{manga.sypnosis}
+
+        h3 Original Run: 
+        p.manga-p #{manga.original_run}
+
+        h3 Volumes: 
+        p.manga-p #{manga.volumes}
+
+        h3 Magazines:
+        div.author-manga-list
+          ul.manga-p 
+            each magazine in manga.magazine
+              div.list-item-child
+                a(href=magazine.url) #{magazine.name} | 
+            else 
+              li This manga has not been published on any magazines.
+
+        h3 Genres:
+        div.author-manga-list
+          ul.manga-p
+            each genre in manga.genre
+              div.list-item-child
+                a(href=genre.url) #{genre.name} |
+            else 
+              li This manga does not associated with any genres.
+
+      div.manga-container-right
+        img(src=`${manga.image}`, alt="")
+
+  else 
+    div.manga-container 
+      h3 Author: 
+      p.manga-p
+        a #{manga.author.name}
+
+      h3 Sypnosis: 
+      p.manga-p #{manga.sypnosis}
+
+      h3 Original Run: 
+      p.manga-p #{manga.original_run}
+
+      h3 Volumes: 
+      p.manga-p #{manga.volumes}
+
+      h3 Magazines:
+      div.author-manga-list
+        ul.manga-p 
+          each magazine in manga.magazine
+            div.list-item-child
+              a(href=magazine.url) #{magazine.name} | 
+          else 
+            li This manga has not been published on any magazines.
+
+      h3 Genres:
+      div.author-manga-list
+        ul.manga-p
+          each genre in manga.genre
+            div.list-item-child
+              a(href=genre.url) #{genre.name} |
+          else 
+            li This manga does not associated with any genres.
+
+  section.delete-update-container
+    p
+      a(href=`${manga.url}/delete`) Delete Author 
+    p
+      a(href=`${manga.url}/update`) Update Author
+
+  br
+  br

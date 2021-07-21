@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  div.sub-title-container
+    p #{title}:
+
+  a(href="/manga/create").form-link + Create Manga
+
+  ul.list-item 
+    each manga in manga_list 
+      li 
+        a(href=manga.url) #{manga.title} 
+        | (#{manga.author.name})
+    else 
+      li There are no current Manga.
