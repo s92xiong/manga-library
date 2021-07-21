@@ -56,7 +56,7 @@ exports.manga_create_post = [
   body("volumes").trim().isLength({ min: 1 }).escape().withMessage("Volumes field must contain value.").isNumeric().withMessage("Volumes field must contain a numeric value"),
 
   body("sypnosis", "Sypnosis field must not be empty").trim().isLength({ min: 1 }).escape(),
-  body("image", "Image field must not be empty").trim().isLength({ min: 1 }).escape(),
+  body("image", "Image field must not be empty").trim().isLength({ min: 1 }),
 
   // Process req after validation & sanitization
   (req, res, next) => {
