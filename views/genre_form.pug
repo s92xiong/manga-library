@@ -5,7 +5,7 @@ block content
     p #{title}: 
       b #{genre && genre.name}
 
-  form(method="POST" action="")
+  form(method="POST" action="" style="width: 95%; margin: 0 auto")
     div
       input#name(type="text", placeholder="Fantasy, Adventure etc.", name="name" value=(undefined===genre ? "" : genre.name), required="true") 
     button(type="submit") Submit

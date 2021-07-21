@@ -4,7 +4,7 @@ block content
   div.sub-title-container
     p #{title}: 
 
-  form(method="POST" action="") 
+  form(method="POST" action="" style="width: 95%; margin: 0 auto") 
     div 
       label(for="first_name") First Name: 
       input#first_name(type="text" placeholder="First name (Josuke)" name="first_name" required="true" value=(undefined===author ? "" : author.first_name))

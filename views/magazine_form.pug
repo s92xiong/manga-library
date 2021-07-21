@@ -6,7 +6,7 @@ block content
       b #{magazine && magazine.name}
     
 
-  form(method="POST" action="")
+  form(method="POST" action="" style="width: 95%; margin: 0 auto")
     div
       input#name(type="text", placeholder="Add a magazine name", name="name" value=(undefined===magazine ? "" : magazine.name), required="true") 
     button(type="submit") Submit
