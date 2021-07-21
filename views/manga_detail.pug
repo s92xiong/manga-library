@@ -11,7 +11,7 @@ block content
       div.manga-container-left
         h3 Author: 
         p.manga-p
-          a #{manga.author.name}
+          a(href=manga.author.url)  #{manga.author.name}
 
         h3 Sypnosis: 
         p.manga-p #{manga.sypnosis}

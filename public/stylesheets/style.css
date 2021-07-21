@@ -251,6 +251,21 @@ button:hover {
     padding: 0.5em;
   }
 
+  .manga-container {
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+
+  .manga-container-left {
+    width: 100%;
+  }
+
+  .manga-container-right {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+
   /* ------------------------ HOMEPAGE / INDEX ------------------------ */
 
   .home-title {
