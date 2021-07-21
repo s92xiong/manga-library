@@ -6,10 +6,13 @@ block content
       b #{manga && manga.name}
 
   form(method="POST" action="" style="width: 95%; margin: 0 auto")
+    //- Title Input Field
     div
       label(for="title") 
        b Title:
       input#title(type="text", placeholder="My Hero Academia, etc.", name="title" value=(undefined===manga ? "" : manga.title), required="true") 
+    
+    //- Author Input Field
     div
       label(for="author") 
         b Author:
@@ -19,6 +22,8 @@ block content
             option(value=author._id selected=(author._id.toString()==manga.author._id || author._id.toString()==manga.author ? "selected" : false)) #{author.name} 
           else 
             option(value=author._id) #{author.name}
+
+    //- Magazine Input Field            
     div(style="margin-top: 0.75em")
       label(for="magazine") 
         b Magazine:
@@ -28,6 +33,7 @@ block content
             input(type="checkbox", name="magazine", id=magazine._id, value=magazine._id, checked=magazine.checked)
             label(for=magazine._id)  #{magazine.name} 
     
+    //- Genre Input Field
     hr(style="margin: 1.25em 0")
     div(style="margin-top: 0.75em")
       label 
@@ -38,6 +44,7 @@ block content
             input.checkbox-input(type='checkbox', name='genre', id=genre._id, value=genre._id, checked=genre.checked )
             label(for=genre._id)  #{genre.name}
 
+    //- Original Runs Input Field
     hr(style="margin: 1.25em 0")
     div.input-container
       label(for="original_run_start") 
@@ -50,18 +57,22 @@ block content
         b Original Run (End): 
       input#original_run_end(type="date", name="original_run_end" value=(undefined===manga ? "" : manga.original_run_end)) 
 
+    //- Volumes Input Field
     hr(style="margin: 1.25em 0")
     div.input-container
       label(for="volumes") 
         b Volumes:  
       input#volumes(style="text-align: center" type="number", placeholder="0" name="volumes" value=(undefined===manga ? "" : manga.volumes), required="true" min="1" max="1000") 
 
+
+    //- Sypnosis Input Field
     hr(style="margin: 1.25em 0")
     div
       label(for="sypnosis") 
         b Sypnosis: 
       input#sypnosis(type="text", placeholder="In 2071, roughly fifty years after an accident with a hyperspace gateway made the Earth..", name="sypnosis" value=(undefined===manga ? "" : manga.sypnosis), required="true") 
     
+    //- Image Input Field
     div
       label(for="image") 
         b Image:  
