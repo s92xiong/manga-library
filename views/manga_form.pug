@@ -79,5 +79,10 @@ block content
       input#image(type="text", placeholder="Enter a valid image url", name="image" value=(undefined===manga ? "" : manga.image)) 
     button(type="submit") Submit
 
-    br
-    br
+  if errors
+    ul
+      for error in errors
+        li!= error.msg
+
+  br
+  br

@@ -3,6 +3,7 @@ const Manga = require("../models/manga");
 const Magazine = require("../models/magazine");
 const Genre = require("../models/genre");
 
+const { body, validationResult } = require("express-validator");
 const async = require("async");
 
 // Display list of all mangas
@@ -41,9 +42,51 @@ exports.manga_create_get = (req, res, next) => {
 
 
 // Handle creating a manga
-exports.manga_create_post = (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Manga Create POST");
-};
+exports.manga_create_post = [
+  // Validate and sanitize the input fields:
+  body("title", "Title field must not be empty").trim().isLength({ min: 1 }).escape(),
+  body("author", "Author field must not be empty").trim().isLength({ min: 1 }).escape(),
+
+  body("magazine.*", "Magazine field must not be empty").escape(),
+  body("genre.*", "Genre field must not be empty").escape(),
+
+  body("original_run_start", "Start date must not be empty").optional({ checkFalsy: true }).isISO8601().toDate(),
+	body("original_run_end", "End date must not be empty").optional({ checkFalsy: true }).isISO8601().toDate(),
+
+  body("volumes").trim().isLength({ min: 1 }).escape().withMessage("Volumes field must contain value.").isNumeric().withMessage("Volumes field must contain a numeric value"),
+
+  body("sypnosis", "Sypnosis field must not be empty").trim().isLength({ min: 1 }).escape(),
+  body("image", "Image field must not be empty").trim().isLength({ min: 1 }).escape(),
+
+  // Process req after validation & sanitization
+  (req, res, next) => {
+    const error = validationResult(req);
+
+    const manga = new Manga({
+      title: req.body.title,
+      author: req.body.author,
+      magazine: req.body.magazine,
+      genre: req.body.genre,
+      original_run_start: req.body.original_run_start,
+      original_run_end: req.body.original_run_end,
+      volumes: req.body.volumes,
+      sypnosis: req.body.sypnosis,
+      image: req.body.image
+    });
+
+    if (!error.isEmpty()) {
+      async.parallel({
+        genres: function(cb) { Genre.find().sort([["name ascending"]]).exec(cb) },
+        magazines: function(cb) { Magazine.find().sort([["name ascending"]]).exec(cb) },
+        authors: function(cb) { Author.find().sort([["name ascending"]]).exec(cb) }
+      }, (err, results) => {
+        if (err) return next(err);
+        return res.render("manga_form", { title: "Create a new Manga", genres: results.genres, magazines: results.magazines, authors: results.authors, manga: manga, errors: error.array() });
+      });
+    }
+    manga.save(err => err ? next(err) : res.redirect(manga.url));
+  }
+];
 
 
 // Show form to delete a manga
