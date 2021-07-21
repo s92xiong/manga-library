@@ -1,0 +1,72 @@
+extends layout
+
+block content
+  div.sub-title-container(style="font-size: large")
+    p #{title}: 
+      b #{manga && manga.name}
+
+  form(method="POST" action="" style="width: 95%; margin: 0 auto")
+    div
+      label(for="title") 
+       b Title:
+      input#title(type="text", placeholder="My Hero Academia, etc.", name="title" value=(undefined===manga ? "" : manga.title), required="true") 
+    div
+      label(for="author") 
+        b Author:
+      select#author(type="select", placeholder="Select author", name="author", required="true") 
+        for author in authors 
+          if manga 
+            option(value=author._id selected=(author._id.toString()==manga.author._id || author._id.toString()==manga.author ? "selected" : false)) #{author.name} 
+          else 
+            option(value=author._id) #{author.name}
+    div(style="margin-top: 0.75em")
+      label(for="magazine") 
+        b Magazine:
+      div(style="margin-top: 0.75em")
+        for magazine in magazines 
+          div(style='display: inline; padding-right:10px;')
+            input(type="checkbox", name="magazine", id=magazine._id, value=magazine._id, checked=magazine.checked)
+            label(for=magazine._id)  #{magazine.name} 
+    
+    hr(style="margin: 1.25em 0")
+    div(style="margin-top: 0.75em")
+      label 
+        b Genre:
+      div(style="margin-top: 0.75em")
+        for genre in genres
+          div(style='display: inline; padding-right:10px;')
+            input.checkbox-input(type='checkbox', name='genre', id=genre._id, value=genre._id, checked=genre.checked )
+            label(for=genre._id)  #{genre.name}
+
+    hr(style="margin: 1.25em 0")
+    div.input-container
+      label(for="original_run_start") 
+        b Original Run (Start): 
+      input#original_run_start(type="date", name="original_run_start" value=(undefined===manga ? "" : manga.original_run_start)) 
+
+    hr(style="margin: 1.25em 0")
+    div.input-container
+      label(for="original_run_end") 
+        b Original Run (End): 
+      input#original_run_end(type="date", name="original_run_end" value=(undefined===manga ? "" : manga.original_run_end)) 
+
+    hr(style="margin: 1.25em 0")
+    div.input-container
+      label(for="volumes") 
+        b Volumes:  
+      input#volumes(style="text-align: center" type="number", placeholder="0" name="volumes" value=(undefined===manga ? "" : manga.volumes), required="true" min="1" max="1000") 
+
+    hr(style="margin: 1.25em 0")
+    div
+      label(for="sypnosis") 
+        b Sypnosis: 
+      input#sypnosis(type="text", placeholder="In 2071, roughly fifty years after an accident with a hyperspace gateway made the Earth..", name="sypnosis" value=(undefined===manga ? "" : manga.sypnosis), required="true") 
+    
+    div
+      label(for="image") 
+        b Image:  
+      input#image(type="text", placeholder="Enter a valid image url", name="image" value=(undefined===manga ? "" : manga.image)) 
+    button(type="submit") Submit
+
+    br
+    br

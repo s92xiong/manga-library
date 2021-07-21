@@ -227,6 +227,12 @@ button:hover {
   color: rgb(29, 29, 235);
 }
 
+/* ------------------------ MANGA FORM ------------------------ */
+
+.input-container {
+  margin: 1em 0;
+}
+
 /* ------------------------ MOBILE VIEW ------------------------ */
 
 @media (max-width: 868px) {

@@ -1,4 +1,8 @@
+const Author = require("../models/author");
 const Manga = require("../models/manga");
+const Magazine = require("../models/magazine");
+const Genre = require("../models/genre");
+
 const async = require("async");
 
 // Display list of all mangas
@@ -25,7 +29,14 @@ exports.manga_detail = (req, res, next) => {
 
 // Display the form to create a manga
 exports.manga_create_get = (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Manga Create GET");
+  async.parallel({
+    genres: function(cb) { Genre.find().sort([["name ascending"]]).exec(cb) },
+    magazines: function(cb) { Magazine.find().sort([["name ascending"]]).exec(cb) },
+    authors: function(cb) { Author.find().sort([["name ascending"]]).exec(cb) }
+  }, (err, results) => {
+    if (err) return next(err);
+    res.render("manga_form", { title: "Create a new Manga", genres: results.genres, magazines: results.magazines, authors: results.authors });
+  });
 };
 
 
