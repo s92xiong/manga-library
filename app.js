@@ -13,13 +13,8 @@ require("dotenv").config();
 const mongoose = require('mongoose');
 
 // Set up default mongoose connection
-// const dev_db_url = process.env.MONGODB_URI;
-// const mongoDB = process.env.MONGODB_URI || dev_db_url;
-
-
-var dev_db_url = 'mongodb+srv://sXiongdb:s92xiong-manga-library@cluster0.hh4be.mongodb.net/manga-library?retryWrites=true&w=majority';
-var mongoDB = process.env.MONGODB_URI || dev_db_url;
-
+const dev_db_url = process.env.MONGODB_URI;
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
 
 
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
