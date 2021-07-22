@@ -5,6 +5,7 @@ const Genre = require("../models/genre");
 
 const { body, validationResult } = require("express-validator");
 const async = require("async");
+const isImageURL = require('image-url-validator').default;
 
 // Display list of all mangas
 exports.manga_list = (req, res, next) => {
@@ -58,7 +59,41 @@ exports.manga_create_post = [
   body("sypnosis", "Sypnosis field must not be empty").trim().isLength({ min: 1 }).escape(),
   body("image", "Image field must not be empty").trim().isLength({ min: 1 }),
 
-  // Process req after validation & sanitization
+  // Validate that the image field is an image
+  (req, res, next) => {
+    const manga = new Manga({
+      title: req.body.title,
+      author: req.body.author,
+      magazine: req.body.magazine,
+      genre: req.body.genre,
+      original_run_start: req.body.original_run_start,
+      original_run_end: req.body.original_run_end,
+      volumes: req.body.volumes,
+      sypnosis: req.body.sypnosis,
+      image: req.body.image
+    });
+
+    async.parallel({
+      genres: function(cb) { Genre.find().sort([["name ascending"]]).exec(cb) },
+      magazines: function(cb) { Magazine.find().sort([["name ascending"]]).exec(cb) },
+      authors: function(cb) { Author.find().sort([["name ascending"]]).exec(cb) },
+    }, (err, results) => {
+      if (err) return next(err);
+      
+      isImageURL(req.body.image).then(promiseResult => {
+        if (!promiseResult) {
+          return res.render("manga_form", { title: "Create a new Manga", genres: results.genres, magazines: results.magazines, authors: results.authors, manga: manga, invalidImg: "Invalid image" });
+        } else {
+          return next();
+        }
+      }).catch(err => {
+        console.error(err);
+        return next(err);
+      })
+    });
+  },
+
+  // Process req for all input fields
   (req, res, next) => {
     const error = validationResult(req);
 

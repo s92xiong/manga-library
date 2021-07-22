@@ -26,8 +26,7 @@ block content
         div.author-manga-list
           ul.manga-p 
             each magazine in manga.magazine
-              div.list-item-child
-                a(href=magazine.url) #{magazine.name} | 
+              a(href=magazine.url) #{magazine.name},  
             else 
               li This manga has not been published on any magazines.
 
@@ -35,8 +34,7 @@ block content
         div.author-manga-list
           ul.manga-p
             each genre in manga.genre
-              div.list-item-child
-                a(href=genre.url) #{genre.name} |
+              a(href=genre.url) #{genre.name},  
             else 
               li This manga does not associated with any genres.
 
@@ -62,8 +60,7 @@ block content
       div.author-manga-list
         ul.manga-p 
           each magazine in manga.magazine
-            div.list-item-child
-              a(href=magazine.url) #{magazine.name} | 
+            a(href=magazine.url) #{magazine.name}, 
           else 
             li This manga has not been published on any magazines.
 
@@ -71,8 +68,7 @@ block content
       div.author-manga-list
         ul.manga-p
           each genre in manga.genre
-            div.list-item-child
-              a(href=genre.url) #{genre.name} |
+            a(href=genre.url) #{genre.name}, 
           else 
             li This manga does not associated with any genres.
 

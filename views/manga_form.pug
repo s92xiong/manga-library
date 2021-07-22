@@ -77,7 +77,10 @@ block content
       label(for="image") 
         b Image:  
       input#image(type="text", placeholder="Enter a valid image url", name="image" value=(undefined===manga ? "" : manga.image)) 
+      if invalidImg
+        p(style="color: red") #{invalidImg}
     button(type="submit") Submit
+
 
   if errors
     ul
