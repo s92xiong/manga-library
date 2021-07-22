@@ -49,13 +49,13 @@ block content
     div.input-container
       label(for="original_run_start") 
         b Original Run (Start): 
-      input#original_run_start(type="date", name="original_run_start" value=(undefined===manga ? "" : start_date)) 
+      input#original_run_start(type="date", name="original_run_start" value=(undefined===manga ? "" : manga.original_run_start)) 
 
     hr(style="margin: 1.25em 0")
     div.input-container
       label(for="original_run_end") 
         b Original Run (End): 
-      input#original_run_end(type="date", name="original_run_end" value=(undefined===manga ? "" : end_date)) 
+      input#original_run_end(type="date", name="original_run_end" value=(undefined===manga ? "" : manga.original_run_end)) 
 
     //- Volumes Input Field
     hr(style="margin: 1.25em 0")

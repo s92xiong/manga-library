@@ -45,7 +45,7 @@ exports.manga_create_get = (req, res, next) => {
 // Handle creating a manga
 exports.manga_create_post = [
   // Validate and sanitize the input fields:
-  body("title", "Title field must not be empty").trim().isLength({ min: 1 }).escape(),
+  body("title", "Title field must not be empty").trim().isLength({ min: 1 }),
   body("author", "Author field must not be empty").trim().isLength({ min: 1 }).escape(),
 
   body("magazine.*", "Magazine field must not be empty").escape(),
@@ -58,6 +58,8 @@ exports.manga_create_post = [
 
   body("sypnosis", "Sypnosis field must not be empty").trim().isLength({ min: 1 }),
   body("image", "Image field must not be empty").trim().isLength({ min: 1 }),
+  
+  // ----------------- Check if image string value is valid -----------------
 
   // Validate that the image field is an image
   (req, res, next) => {
@@ -73,6 +75,7 @@ exports.manga_create_post = [
       image: req.body.image
     });
 
+    // Query for genres, magazines, and authors, use it to re-render the form if the image is invalid
     async.parallel({
       genres: function(cb) { Genre.find().sort([["name ascending"]]).exec(cb) },
       magazines: function(cb) { Magazine.find().sort([["name ascending"]]).exec(cb) },
@@ -80,15 +83,16 @@ exports.manga_create_post = [
     }, (err, results) => {
       if (err) return next(err);
       
+      // If the image is invalid, re-render the form with the manga object and queried results
       isImageURL(req.body.image).then(promiseResult => {
         if (!promiseResult) {
           return res.render("manga_form", { 
-            title: "Create a new Manga",
-            genres: results.genres,
-            magazines: results.magazines,
-            authors: results.authors,
-            manga: manga,
-            invalidImg: "Invalid image"
+            title: "Create Manga", 
+            genres: results.genres, 
+            magazines: results.magazines, 
+            authors: results.authors, 
+            manga: manga, 
+            invalidImg: "Invalid image",
           });
         } else {
           return next();
@@ -100,7 +104,8 @@ exports.manga_create_post = [
     });
   },
 
-  // Process req for all input fields
+
+  // ----------------- Process req for all input fields -----------------
   (req, res, next) => {
     const error = validationResult(req);
 
@@ -113,7 +118,7 @@ exports.manga_create_post = [
       original_run_end: req.body.original_run_end,
       volumes: req.body.volumes,
       sypnosis: req.body.sypnosis,
-      image: req.body.image
+      image: req.body.image,
     });
 
     if (!error.isEmpty()) {
@@ -123,7 +128,14 @@ exports.manga_create_post = [
         authors: function(cb) { Author.find().sort([["name ascending"]]).exec(cb) }
       }, (err, results) => {
         if (err) return next(err);
-        return res.render("manga_form", { title: "Create a new Manga", genres: results.genres, magazines: results.magazines, authors: results.authors, manga: manga, errors: error.array() });
+        return res.render("manga_form", {
+          title: "Create Manga",
+          genres: results.genres, 
+          magazines: results.magazines, 
+          authors: results.authors, 
+          manga: manga, 
+          errors: error.array()
+        });
       });
     }
     manga.save(err => err ? next(err) : res.redirect(manga.url));
@@ -165,8 +177,6 @@ exports.manga_update_get = (req, res, next) => {
       magazines: results.magazines,
       authors: results.authors,
       manga: results.manga,
-      start_date: results.manga.original_run_start.toISOString().substring(0, 10), 
-      end_date: results.manga.original_run_end.toISOString().substring(0, 10), 
     });
   });
 };
@@ -175,7 +185,7 @@ exports.manga_update_get = (req, res, next) => {
 // Handle updating a manga 
 exports.manga_update_post = [
   // Validate and sanitize the input fields:
-  body("title", "Title field must not be empty").trim().isLength({ min: 1 }).escape(),
+  body("title", "Title field must not be empty").trim().isLength({ min: 1 }),
   body("author", "Author field must not be empty").trim().isLength({ min: 1 }).escape(),
 
   body("magazine.*", "Magazine field must not be empty").escape(),
@@ -215,7 +225,7 @@ exports.manga_update_post = [
       isImageURL(req.body.image).then(promiseResult => {
         if (!promiseResult) {
           return res.render("manga_form", { 
-            title: "Create a new Manga", 
+            title: "Update Manga", 
             genres: results.genres, 
             magazines: results.magazines, 
             authors: results.authors, 
@@ -257,9 +267,7 @@ exports.manga_update_post = [
       }, (err, results) => {
         if (err) return next(err);
         return res.render("manga_form", {
-          title: "Create a new Manga", 
-          start_date: manga.original_run_start.toISOString().substring(0, 10), // Convert to string to be populated
-          end_date: manga.original_run_start.toISOString().substring(0, 10), // Convert to string to be populated
+          title: "Update Manga",
           genres: results.genres, 
           magazines: results.magazines, 
           authors: results.authors, 
