@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  div.sub-title-container
+    p #{title}: 
+      b #{manga.title}
+      
+  p Do you really want to delete this Manga?
+  form(method="POST" action="")
+    input#mangaid(type="hidden", name="mangaid", required="true", value=manga._id)
+    button Delete
+
+  if errors 
+    ul 
+      for error in errors 
+        li!= error.msg

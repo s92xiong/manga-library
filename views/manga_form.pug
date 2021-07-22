@@ -31,7 +31,7 @@ block content
         for magazine in magazines 
           div(style='display: inline; padding-right:10px;')
             input(type="checkbox", name="magazine", id=magazine._id, value=magazine._id, checked=magazine.checked)
-            label(for=magazine._id)  #{magazine.name} 
+            label(for=magazine._id style="line-height: 1.75em; cursor: pointer")  #{magazine.name} 
     
     //- Genre Input Field
     hr(style="margin: 1.25em 0")
@@ -40,22 +40,22 @@ block content
         b Genre:
       div(style="margin-top: 0.75em")
         for genre in genres
-          div(style='display: inline; padding-right:10px;')
+          div(style='display: inline; padding-right:10px; cursor:')
             input.checkbox-input(type='checkbox', name='genre', id=genre._id, value=genre._id, checked=genre.checked )
-            label(for=genre._id)  #{genre.name}
+            label(for=genre._id, style="line-height: 1.75em; cursor: pointer" )  #{genre.name}
 
     //- Original Runs Input Field
     hr(style="margin: 1.25em 0")
     div.input-container
       label(for="original_run_start") 
         b Original Run (Start): 
-      input#original_run_start(type="date", name="original_run_start" value=(undefined===manga ? "" : manga.original_run_start)) 
+      input#original_run_start(type="date", name="original_run_start" value=(undefined===manga ? "" : start_date)) 
 
     hr(style="margin: 1.25em 0")
     div.input-container
       label(for="original_run_end") 
         b Original Run (End): 
-      input#original_run_end(type="date", name="original_run_end" value=(undefined===manga ? "" : manga.original_run_end)) 
+      input#original_run_end(type="date", name="original_run_end" value=(undefined===manga ? "" : end_date)) 
 
     //- Volumes Input Field
     hr(style="margin: 1.25em 0")
@@ -76,7 +76,7 @@ block content
     div
       label(for="image") 
         b Image:  
-      input#image(type="text", placeholder="Enter a valid image url", name="image" value=(undefined===manga ? "" : manga.image)) 
+      input#image(type="text", placeholder="Enter a valid image url", name="image" value=(undefined===manga ? "" : manga.image), required="true") 
       if invalidImg
         p(style="color: red") #{invalidImg}
     button(type="submit") Submit
