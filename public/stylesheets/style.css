@@ -104,11 +104,11 @@ li {
 
 /* This class is used in other models */
 .list-item-child {
-  margin-bottom: 1em 0;
+  margin: 1em 0;
 }
 
 .list-item li {
-  padding: 0.1em 0;
+  padding: 0.25em 0;
 }
 
 /* ------------------------ GENRE DETAIL PAGE ------------------------ */
@@ -188,6 +188,45 @@ button:hover {
 .author-genre-list h3 {
   margin: 0 0 0.5em 0;
   color: black;
+}
+
+/* ------------------------ MANGA LIST ------------------------ */
+
+.manga-grid {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  /* margin: 0 auto; */
+}
+
+.manga-grid-item {
+  text-align: center;
+  padding: 2em;
+}
+
+.manga-img-container {
+  margin: 0 auto 1.5em auto;
+  width: 206px;
+  height: 325px;
+  background-position: center;
+  background-size: cover;
+}
+
+@media (max-width: 1200px) {
+  .manga-grid {
+    grid-template-columns: 33.33% 33.33% 33.33%;
+  }
+}
+
+@media (max-width: 900px) {
+  .manga-grid {
+    grid-template-columns: 50% 50%;
+  }
+}
+
+@media (max-width: 650px) {
+  .manga-grid {
+    grid-template-columns: 100%;
+  }
 }
 
 

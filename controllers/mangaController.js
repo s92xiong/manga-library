@@ -9,9 +9,12 @@ const isImageURL = require('image-url-validator').default;
 
 // Display list of all mangas
 exports.manga_list = (req, res, next) => {
-  Manga.find({}, "title author").populate("author").exec((err, list_manga) => {
+
+  async.parallel({
+    manga: function(cb) { Manga.find({}, "title author image").populate("author").exec(cb) },
+  }, (err, results) => {
     if (err) return next(err);
-    res.render("manga_list", { title: "Manga List", manga_list: list_manga });
+    res.render("manga_list", { title: "Manga List", manga_list: results.manga });
   });
 };
 
@@ -32,9 +35,9 @@ exports.manga_detail = (req, res, next) => {
 // Display the form to create a manga
 exports.manga_create_get = (req, res, next) => {
   async.parallel({
-    genres: function(cb) { Genre.find().sort([["name ascending"]]).exec(cb) },
-    magazines: function(cb) { Magazine.find().sort([["name ascending"]]).exec(cb) },
-    authors: function(cb) { Author.find().sort([["name ascending"]]).exec(cb) }
+    genres: function(cb) { Genre.find().sort([["name", "ascending"]]).exec(cb) },
+    magazines: function(cb) { Magazine.find().sort([["name", "ascending"]]).exec(cb) },
+    authors: function(cb) { Author.find().sort([["name", "ascending"]]).exec(cb) }
   }, (err, results) => {
     if (err) return next(err);
     res.render("manga_form", { title: "Create a new Manga", genres: results.genres, magazines: results.magazines, authors: results.authors });

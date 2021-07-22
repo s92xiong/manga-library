@@ -4,12 +4,16 @@ block content
   div.sub-title-container
     p #{title}:
 
-  a(href="/manga/create").form-link + Create Manga
+  p(style="display: flex; flex-direction: row-reverse; margin-bottom: 2em") 
+    a(href="/manga/create") + Create Manga
 
-  ul.list-item 
-    each manga in manga_list 
-      li 
-        a(href=manga.url) #{manga.title} 
-        | (#{manga.author.name})
-    else 
-      li There are no current Manga.
+  ul.manga-grid
+    - manga_list.sort(function(a, b) { let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0; });
+      each manga in manga_list 
+        div.manga-grid-item
+          div.manga-img-container(style=`background-image: url(${manga.image});`)
+          li
+            a(href=manga.url) #{manga.title} 
+            p #{manga.author.name}
+      else 
+        li There are no current Manga.
