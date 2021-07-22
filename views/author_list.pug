@@ -10,6 +10,7 @@ block content
     each author in author_list
       li 
         a(href=author.url) #{author.name}
-        |  (#{author.years_alive})
+        if author.years_alive
+          |  (#{author.years_alive})
     else 
       li There are no current Authors.

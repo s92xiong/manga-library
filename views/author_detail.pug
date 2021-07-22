@@ -4,7 +4,8 @@ block content
   div.sub-title-container
     p #{title}: 
       b #{author.name} 
-      | (#{author.years_alive})
+      if author.years_alive
+        | (#{author.years_alive})
 
 
   h3.author-manga Manga:
