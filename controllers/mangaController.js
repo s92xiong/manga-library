@@ -88,9 +88,7 @@ exports.manga_create_post = [
             magazines: results.magazines,
             authors: results.authors,
             manga: manga,
-            invalidImg: "Invalid image",
-            start_date: manga.original_run_start.toISOString().substring(0, 10), 
-            end_date: manga.original_run_end.toISOString().substring(0, 10), 
+            invalidImg: "Invalid image"
           });
         } else {
           return next();
@@ -223,8 +221,6 @@ exports.manga_update_post = [
             authors: results.authors, 
             manga: manga, 
             invalidImg: "Invalid image",
-            start_date: manga.original_run_start.toISOString().substring(0, 10), // Convert to string to be populated
-            end_date: manga.original_run_start.toISOString().substring(0, 10), // Convert to string to be populated
           });
         } else {
           return next();
