@@ -11,9 +11,11 @@ block content
     - manga_list.sort(function(a, b) { let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0; });
       each manga in manga_list 
         div.manga-grid-item
-          div.manga-img-container(style=`background-image: url(${manga.image});`)
+          a(href=manga.url)
+            div.manga-img-container(style=`background-image: url(${manga.image});`)
           li
-            a(href=manga.url) #{manga.title} 
-            p #{manga.author.name}
+            p #{manga.title} 
+            p(style="margin-top: 0.25em") 
+              a(href=manga.author.url)  #{manga.author.name}
       else 
         li There are no current Manga.
