@@ -3,12 +3,25 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const helmet = require("helmet");
 
-// Set up mongoose connection
+var catalogRouter = require('./routes/catalog'); // Import routes for "catalog" area of site
+var compression = require('compression');
+
+require("dotenv").config();
+
+// Import mongoose
 const mongoose = require('mongoose');
-const mongoDB = "mongodb+srv://sXiongdb:s92xiong-manga-library@cluster0.hh4be.mongodb.net/manga-library?retryWrites=true&w=majority";
+
+// Set up default mongoose connection
+const dev_db_url = process.env.MONGODB_URI;
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// Default connection
 const db = mongoose.connection;
+
+// Bind connection to error
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 var indexRouter = require('./routes/routes');
@@ -23,9 +36,15 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(helmet());
+
+app.use(compression()); //Compress all routes
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/catalog', catalogRouter);  // Add catalog routes to middleware chain.
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
