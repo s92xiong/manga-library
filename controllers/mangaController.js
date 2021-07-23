@@ -9,7 +9,6 @@ const isImageURL = require('image-url-validator').default;
 
 // Display list of all mangas
 exports.manga_list = (req, res, next) => {
-
   async.parallel({
     manga: function(cb) { Manga.find({}, "title author image").populate("author").exec(cb) },
   }, (err, results) => {
@@ -80,9 +79,9 @@ exports.manga_create_post = [
 
     // Query for genres, magazines, and authors, use it to re-render the form if the image is invalid
     async.parallel({
-      genres: function(cb) { Genre.find().sort([["name ascending"]]).exec(cb) },
-      magazines: function(cb) { Magazine.find().sort([["name ascending"]]).exec(cb) },
-      authors: function(cb) { Author.find().sort([["name ascending"]]).exec(cb) },
+      genres: function(cb) { Genre.find().sort([["name", "ascending"]]).exec(cb) },
+      magazines: function(cb) { Magazine.find().sort([["name", "ascending"]]).exec(cb) },
+      authors: function(cb) { Author.find().sort([["name", "ascending"]]).exec(cb) },
     }, (err, results) => {
       if (err) return next(err);
       
@@ -126,9 +125,9 @@ exports.manga_create_post = [
 
     if (!error.isEmpty()) {
       async.parallel({
-        genres: function(cb) { Genre.find().sort([["name ascending"]]).exec(cb) },
-        magazines: function(cb) { Magazine.find().sort([["name ascending"]]).exec(cb) },
-        authors: function(cb) { Author.find().sort([["name ascending"]]).exec(cb) }
+        genres: function(cb) { Genre.find().sort([["name", "ascending"]]).exec(cb) },
+        magazines: function(cb) { Magazine.find().sort([["name", "ascending"]]).exec(cb) },
+        authors: function(cb) { Author.find().sort([["name", "ascending"]]).exec(cb) }
       }, (err, results) => {
         if (err) return next(err);
         return res.render("manga_form", {
@@ -167,9 +166,9 @@ exports.manga_delete_post = (req, res, next) => {
 // Show form to update a manga
 exports.manga_update_get = (req, res, next) => {
   async.parallel({
-    genres: function(cb) { Genre.find().sort([["name ascending"]]).exec(cb) },
-    magazines: function(cb) { Magazine.find().sort([["name ascending"]]).exec(cb) },
-    authors: function(cb) { Author.find().sort([["name ascending"]]).exec(cb) },
+    genres: function(cb) { Genre.find().sort([["name", "ascending"]]).exec(cb) },
+    magazines: function(cb) { Magazine.find().sort([["name", "ascending"]]).exec(cb) },
+    authors: function(cb) { Author.find().sort([["name", "ascending"]]).exec(cb) },
     manga: function(cb) { Manga.findById(req.params.id).exec(cb) }
   }, (err, results) => {
     if (err) return next(err);
@@ -218,9 +217,9 @@ exports.manga_update_post = [
 
     // Query for genres, magazines, and authors, use it to re-render the form if the image is invalid
     async.parallel({
-      genres: function(cb) { Genre.find().sort([["name ascending"]]).exec(cb) },
-      magazines: function(cb) { Magazine.find().sort([["name ascending"]]).exec(cb) },
-      authors: function(cb) { Author.find().sort([["name ascending"]]).exec(cb) },
+      genres: function(cb) { Genre.find().sort([["name", "ascending"]]).exec(cb) },
+      magazines: function(cb) { Magazine.find().sort([["name", "ascending"]]).exec(cb) },
+      authors: function(cb) { Author.find().sort([["name", "ascending"]]).exec(cb) },
     }, (err, results) => {
       if (err) return next(err);
       
@@ -264,9 +263,9 @@ exports.manga_update_post = [
 
     if (!error.isEmpty()) {
       async.parallel({
-        genres: function(cb) { Genre.find().sort([["name ascending"]]).exec(cb) },
-        magazines: function(cb) { Magazine.find().sort([["name ascending"]]).exec(cb) },
-        authors: function(cb) { Author.find().sort([["name ascending"]]).exec(cb) }
+        genres: function(cb) { Genre.find().sort([["name", "ascending"]]).exec(cb) },
+        magazines: function(cb) { Magazine.find().sort([["name", "ascending"]]).exec(cb) },
+        authors: function(cb) { Author.find().sort([["name", "ascending"]]).exec(cb) }
       }, (err, results) => {
         if (err) return next(err);
         return res.render("manga_form", {
